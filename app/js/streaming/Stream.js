@@ -123,7 +123,16 @@ MediaPlayer.dependencies.Stream = function () {
             session = event.target;
             bytes = new Uint16Array(event.message.buffer);
             msg = String.fromCharCode.apply(null, bytes);
-            laURL = event.destinationURL;
+            
+            // If a licenseAcquisitionUrlResolver has been set, allow it to provide the URL for the license system 
+            // by providing the keySystem. If function returns anything falsey, fallback to event.destinationURL.
+            if (self.system.hasMapping("licenseAcquisitionUrlResolver")) {
+                laURL = self.system.getObject("licenseAcquisitionUrlResolver").getUrl(event.target.keySystem);
+            }
+
+            if (!laURL) {
+                laURL = event.destinationURL;
+            }
 
             self.protectionController.updateFromMessage(kid, session, msg, laURL).fail(
                 function (error) {
