@@ -341,7 +341,7 @@ MediaPlayer = function (aContext) {
                         return handler(keySystem);
                     }
                 };
-            });            
+            });
         },
 
         play: play,
