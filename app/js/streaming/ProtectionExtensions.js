@@ -123,6 +123,7 @@ MediaPlayer.dependencies.ProtectionExtensions.prototype = {
                 };
 
                 xhr.open('POST', laURL);
+                xhr.withCredentials = true;
                 xhr.responseType = 'arraybuffer';
                 if (headers) {
                     headers.forEach(function(hdr) {
