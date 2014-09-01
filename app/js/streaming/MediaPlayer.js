@@ -334,6 +334,16 @@ MediaPlayer = function (aContext) {
             this.attachView(null);
         },
 
+        setLicenseAcquisitionUrlResolver: function (handler) {
+            system.mapSingleton("licenseAcquisitionUrlResolver", function () {
+                return {
+                    getUrl: function (keySystem) {
+                        return handler(keySystem);
+                    }
+                };
+            });
+        },
+
         play: play,
         isReady: isReady,
         seek : seek,

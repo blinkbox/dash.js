@@ -61,6 +61,19 @@ describe("Media Player Test Suite", function () {
       it("getAutoPlay", function () {
             expect(player.getAutoPlay()).not.toBe(null);
      });
+
+     it("set license acquisition url resolver", function () {                                        
+            player.setLicenseAcquisitionUrlResolver(function(keySystem){
+              if (keySystem === "keySystem1"){
+                return "http://keysystem1.com"
+              }
+              else if (keySystem === "keySystem2"){
+                return "http://keysystem2.com"
+              }
+            });            
+            expect(context.system.getObject("licenseAcquisitionUrlResolver").getUrl("keySystem1")).toBe("http://keysystem1.com");
+            expect(context.system.getObject("licenseAcquisitionUrlResolver").getUrl("keySystem2")).toBe("http://keysystem2.com");
+     });
 	
 	if(window.location.href.indexOf("runner.html")>0){
 	 
